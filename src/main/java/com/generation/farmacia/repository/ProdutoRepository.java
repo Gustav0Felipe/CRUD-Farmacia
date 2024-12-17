@@ -14,4 +14,6 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	List<Produto> findAll();
 	
 	List<Produto> findAllByEntrega(@Param("entrega") Float entrega);
+
+	List<Produto> findAllByEntregaLessThan(Float max);
 }

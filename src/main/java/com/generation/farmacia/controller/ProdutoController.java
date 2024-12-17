@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.farmacia.model.Produto;
+import com.generation.farmacia.model.service.ProdutoService;
 import com.generation.farmacia.repository.ProdutoRepository;
 
 import jakarta.validation.Valid;
@@ -27,6 +28,9 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
+	@Autowired
+	private ProdutoService produtoService;
+	
 	@GetMapping
 	public ResponseEntity<List<Produto>> getAll() {
 		return ResponseEntity.ok(produtoRepository.findAll());
@@ -57,6 +61,11 @@ public class ProdutoController {
 	public ResponseEntity<List<Produto>> getByEntrega(@PathVariable Float frete) {
 		return ResponseEntity.ok(produtoRepository.findAllByEntrega(frete));
 	}
+	
+	@GetMapping("frete/max={max}")
+	public ResponseEntity<List<Produto>> getByFrete(@PathVariable Float max) {
+		return ResponseEntity.ok(produtoService.porFreteEntre(max));
+	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
@@ -67,7 +76,6 @@ public class ProdutoController {
 
 		produtoRepository.deleteById(id);
 		return ResponseEntity.ok("Deletado Com Sucesso!");
-
 	}
 
 }
