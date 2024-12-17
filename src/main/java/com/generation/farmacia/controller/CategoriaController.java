@@ -69,5 +69,4 @@ public class CategoriaController {
 		categoriaRepository.deleteById(id);
 		return ResponseEntity.ok("Deletado com Sucesso!");
 	}
-
 }

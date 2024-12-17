@@ -1,9 +1,12 @@
 package com.generation.farmacia.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,6 +29,11 @@ public class Produto {
 
 	@NotNull(message = "Preço de entrega não pode ser Nulo.")
 	private float entrega;
+	
+	@NotNull(message = "Categoria do Produto não pode ser Nula.")
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private Categoria categoria;
 
 	public Long getId() {
 		return id;
@@ -49,6 +57,14 @@ public class Produto {
 
 	public void setPreco(float preco) {
 		this.preco = preco;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	public float getEntrega() {
